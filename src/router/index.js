@@ -24,9 +24,9 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
-    path: '/404',
-    name: '404',
-    component: () => import('../views/Unauthorized.vue')
+    path: '/error',
+    name: 'Error',
+    component: () => import('../views/Error.vue')
   },
   {
     path: '/user',
@@ -48,6 +48,8 @@ router.beforeEach((to, from, next) => {
       return
     }
     next('/404')
+  } else if (to.name == 'Login' && store.getters.isAuthorized) {
+    next('/')
   } else {
     next()
   }
