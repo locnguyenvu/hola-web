@@ -27,7 +27,6 @@ const store = createStore({
           pin: payload.pin
         })
           .then(resp => {
-            console.log(resp)
             const token = resp.data.token
             setAuthorization(token)
             commit('authSuccess')

@@ -11,7 +11,7 @@
         <tbody>
           <tr v-for="user in users" :key="user.id">
             <th scope="row">{{user.id}}</th>
-            <td>{{user.tlg_uname}}</td>
+            <td>{{user.telegram_username}}</td>
           </tr>
         </tbody>
       </table>
@@ -19,18 +19,27 @@
   </div>
 </template>
 <script>
+import { ref, getCurrentInstance, onMounted } from 'vue'
 export default {
   name: 'User',
-  data() {
-    return {
-      users: []
+  setup() {
+    const curInstance = getCurrentInstance()
+    const holaClient = curInstance.appContext.config.globalProperties.$holaClient
+    const users = ref([])
+
+    const fetchUser = function() {
+      holaClient.get('/user')
+        .then(resp => {
+          users.value = resp.data.data
+        })
     }
-  },
-  mounted() {
-    this.$holaClient.get('/usr/')
-      .then((resp) => {
-        this.users = resp.data.data
-      })
+
+    onMounted(fetchUser)
+
+    return {
+      users,
+      fetchUser
+    }
   }
 }
 </script>

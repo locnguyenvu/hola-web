@@ -31,7 +31,18 @@ const routes = [
   {
     path: '/user',
     name: 'User',
-    component: () => import('../views/User.vue')
+    component: () => import('../views/User.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/spending-log',
+    name: 'SpendingLog',
+    component: () => import('../views/SpendingLog.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
 ]
 
