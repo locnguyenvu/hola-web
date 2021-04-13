@@ -1,6 +1,8 @@
 <template>
-  <div class="unauthorized">
-    <h1>This is an about page</h1>
+  <div class="error row">
+    <div class="col-12 text-center">
+      <h1>Please login</h1>
+    </div>
   </div>
 </template>
 <script>

@@ -6,7 +6,8 @@ const store = createStore({
     return {
       auth_status: '',
       hola_token: getToken(),
-      client_error_code : 0
+      error_http_status_code : 0,
+      error_message: null
     }
   },
   mutations: {
@@ -16,8 +17,11 @@ const store = createStore({
     authFailed(state) {
       state.auth_status = 'failed'
     },
-    setClientError(state, code) {
-      this.client_error_code = code 
+    setErrorHttpStatusCode(state, code) {
+      state.error_http_status_code = code 
+    },
+    setErrorMessage(state, msg) {
+      state.error_message = msg
     }
   },
   actions: {
@@ -49,7 +53,9 @@ const store = createStore({
   },
   getters: {
     isAuthorized: state => state.auth_status == 'success' || state.hola_token,
-    isClientError: state => state.client_error_code >= 400
+    isClientError: state => state.error_http_status_code >= 400 && state.error_http_status_code < 500,
+    isServerError: state => state.error_http_status_code >= 500,
+    errorMessage: state => state.error_message
   }
 })
 

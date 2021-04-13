@@ -1,14 +1,14 @@
 <template>
   <div class="card spending-pie-chart-card">
     <div class="card-header">
-      Tổng chi tiêu
+      Tổng chi tiêu {{time_span}}
     </div>
     <div class="card-body">
       <div class="card-title">
         {{formatted_total}}
       </div>
       <div class="card-text">
-        <canvas id="myChart" ref="chart"></canvas>
+        <canvas id="myChart" height="400" width="400" ref="chart"></canvas>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
 import { ref,  getCurrentInstance, onMounted } from 'vue'
 import { Chart } from 'chart.js';
 export default {
-  name: 'SpendingPieChartCard',
+  name: 'ExpenseByCategoryPieChartCard',
   props: {
     msg: String
   },
@@ -26,6 +26,8 @@ export default {
 
     const chart = ref(null)
     const total = ref(0)
+    const fromMonth = ref(null)
+    const toMonth = ref(null)
     const curInstance = getCurrentInstance()
     const holaClient = curInstance.appContext.config.globalProperties.$holaClient
 
@@ -44,10 +46,12 @@ export default {
     ];
 
     onMounted(() => {
-      holaClient.get('/chart')
+      holaClient.get('/chart/expense-by-category')
         .then(resp => {
           const reportData = resp.data
           total.value = reportData.total
+          fromMonth.value = reportData.from_month
+          toMonth.value = reportData.to_month
           const chartConfig = {
             type: 'pie',
             data: {
@@ -62,19 +66,23 @@ export default {
           }
           new Chart(chart.value.getContext('2d'), chartConfig)
         })
+        .catch(error => {
+          console.log(error)
+        })  
     })
 
-    return { chart, total }
+    return { chart, total, fromMonth, toMonth }
   },
   computed: {
     formatted_total() {
       return new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(this.total)
+    },
+    time_span() {
+      if (this.fromMonth == this.toMonth) {
+        return this.fromMonth
+      }
+      return this.fromMonth + ' - ' + this.toMonth
     }
   }
 }
 </script>
-<style scope>
-.spending-pie-chart {
-  height: 400px;
-}
-</style>

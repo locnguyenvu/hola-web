@@ -49,7 +49,7 @@ router.beforeEach((to, from, next) => {
       next()
       return
     }
-    next('/404')
+    next('/error')
   } else if (to.name == 'Login' && store.getters.isAuthorized) {
     next('/')
   } else {
