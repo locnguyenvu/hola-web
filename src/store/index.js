@@ -5,7 +5,9 @@ const store = createStore({
   state() {
     return {
       auth_status: '',
-      hola_token: getToken()
+      hola_token: getToken(),
+      error_http_status_code : 0,
+      error_message: null
     }
   },
   mutations: {
@@ -14,6 +16,12 @@ const store = createStore({
     },
     authFailed(state) {
       state.auth_status = 'failed'
+    },
+    setErrorHttpStatusCode(state, code) {
+      state.error_http_status_code = code 
+    },
+    setErrorMessage(state, msg) {
+      state.error_message = msg
     }
   },
   actions: {
@@ -23,7 +31,6 @@ const store = createStore({
           pin: payload.pin
         })
           .then(resp => {
-            console.log(resp)
             const token = resp.data.token
             setAuthorization(token)
             commit('authSuccess')
@@ -45,7 +52,10 @@ const store = createStore({
     }
   },
   getters: {
-    isAuthorized: state => state.auth_status == 'success' || state.hola_token
+    isAuthorized: state => state.auth_status == 'success' || state.hola_token,
+    isClientError: state => state.error_http_status_code >= 400 && state.error_http_status_code < 500,
+    isServerError: state => state.error_http_status_code >= 500,
+    errorMessage: state => state.error_message
   }
 })
 

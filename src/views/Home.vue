@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home row">
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <expense-by-category-pie-chart-card />
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <expense-by-month-line-chart-card />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import ExpenseByCategoryPieChartCard from '@/components/Dashboard/ExpenseByCategoryPieChartCard.vue'
+import ExpenseByMonthLineChartCard from '@/components/Dashboard/ExpenseByMonthLineChartCard.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    ExpenseByCategoryPieChartCard,
+    ExpenseByMonthLineChartCard
   }
 }
 </script>

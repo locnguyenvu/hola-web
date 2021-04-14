@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-3 form-group">
+      <div class="col-md-3 col-sm-8 form-group">
         <input class="form-control" type="password" name="password" v-model="pin" required />
       </div>
     </div>
@@ -18,22 +18,27 @@
   </div>
 </template>
 <script>
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
+import { ref } from 'vue'
 export default {
   name: "Login",
-  data() {
-    return {
-      pin: ''
-    }
-  },
-  methods: {
-    login: function() {
-      this.$store.dispatch('login', {
-        session_id: this.$route.params.session_id,
-        pin: this.pin
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    const route = useRoute()
+
+    const pin = ref(null)
+
+    const login =function() {
+      store.dispatch('login', {
+        session_id: route.params.session_id,
+        pin: pin.value
       }).then(() => {
-        this.$router.push('/about')
+        router.push('/')
       })
     }
+    return { login, pin }
   }
 }
 </script>
