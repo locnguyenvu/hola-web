@@ -1,15 +1,25 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
 jobs:
   deploy:
+    docker:
+      - image: node:14-alpine
     working_directory: ~/project
-    executor: node/default
     steps:
       - checkout:
           name: main
           path: ~/project
-      - run: npm install
+      - run:
+          shell: /bin/ash
+          environment:
+            VUE_APP_HOLAA_API_URL: $API_URL
+          command: |
+            echo 'Build project'
+            npm install
+            npm run build
+            echo 'Install openssh' 
+            apk update && apk install openssh
+            scp -r ./dist $USER@$HOST:$PROJECT_DIR
+      
 workflows:
   deploy:
     jobs:
