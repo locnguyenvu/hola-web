@@ -16,7 +16,7 @@
             </ul>
           </li>
         </ul>
-        <div class="d-flex nav-item" v-if="isAuthorized">
+        <div class="d-flex nav-item log-out-btn" v-if="isAuthorized">
           <a class="nav-link" href="#" @click="logout">Logout</a>
         </div>
       </div>
@@ -91,5 +91,16 @@ export default {
 }
 .nav-item a.router-link-exact-active {
   font-weight: 600;
+}
+
+.navbar-nav .nav-item .dropdown-menu {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.log-out-btn .nav-link {
+  color: rgba(0,0,0,.7);
+  padding-left: 0px;
 }
 </style>

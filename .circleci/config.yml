@@ -1,0 +1,31 @@
+version: 2.1
+jobs:
+  deploy:
+    docker:
+      - image: node:14-alpine
+    working_directory: ~/project
+    steps:
+      - checkout:
+          name: main
+          path: ~/project
+      - run:
+          shell: /bin/ash
+          environment:
+            VUE_APP_HOLAA_API_URL: $API_URL
+          command: |
+            echo 'Build project'
+            echo 'VUE_APP_HOLAA_API_URL='$API_URL >| ./.env
+            npm install
+            npm run build
+            echo 'Install openssh' 
+            apk update && apk add openssh
+            scp -o StrictHostKeyChecking=no -r ./dist $USER@$HOST:$PROJECT_DIR
+      
+workflows:
+  deploy:
+    jobs:
+      - deploy:
+            filters:
+            branches:
+              only:
+                - main
