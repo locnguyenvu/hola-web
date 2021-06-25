@@ -7,6 +7,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link to="/spending-log" class="nav-link">Spendings</router-link>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Settings 
@@ -29,7 +32,7 @@
       </div>
      </div>
   </div>
-  <div id="router-view" class="container">
+  <div id="router-view" class="container-fluid">
     <router-view/>
   </div>
 </template>

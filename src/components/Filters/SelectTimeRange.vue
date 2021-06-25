@@ -1,6 +1,6 @@
 <template>
   <select class="form-select" :value="timeRange" @change="$emit('update:timeRange', $event.target.value)">
-    <option selected>time_range</option>
+    <option value=''>Hôm nay</option>
     <option v-for="option in options" :key="option.id" >
       {{option.value}}
     </option>

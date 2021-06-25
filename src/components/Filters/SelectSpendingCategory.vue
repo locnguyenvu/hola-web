@@ -1,5 +1,6 @@
 <template>
   <select class="form-select" :value="categoryId" @change="$emit('update:categoryId', $event.target.value)">
+    <option value=''>Tất cả</option>
     <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{cat.display_name}}</option>
   </select>
 </template>

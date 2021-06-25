@@ -1,5 +1,5 @@
 <template>
-  <div class="card my-1">
+  <div class="card mb-2 shadow-sm bg-body">
     <div class="card-header">
       {{createdAt}}
       <a href='#' class="btn-sm btn-outline-primary float-end" role="button"><font-awesome-icon icon="edit" /></a>

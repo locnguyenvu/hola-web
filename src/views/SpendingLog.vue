@@ -1,11 +1,13 @@
 <template>
   <div class='row'>
     <div class='col-12'>
-      <form class='row'>
-        <div class="col-6">
+      <form class="row shadow mb-2 bg-body rounded">
+        <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3">
+          <label class="form-label"><small>Timerange</small></label>
           <select-time-range v-model:time-range="filter.time_range" ></select-time-range>
         </div>
-        <div class="col-6">
+        <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3">
+          <label class="form-label"><small>Category</small></label>
           <select-spending-category v-model:category-id="filter.category_id" ></select-spending-category>
         </div>
       </form>
