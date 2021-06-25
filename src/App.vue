@@ -93,11 +93,11 @@ export default {
   font-weight: 600;
 }
 
-.navbar-nav .nav-item .dropdown-menu {
+/* .navbar-nav .nav-item .dropdown-menu {
   background: transparent;
   border: none;
   padding: 0;
-}
+} */
 
 .log-out-btn .nav-link {
   color: rgba(0,0,0,.7);

@@ -17,6 +17,9 @@ holaClient.interceptors.response.use(function (response) {
     // Do something with response error
     store.commit('setErrorHttpStatusCode', error.response.status)
     store.commit('setErrorMessage', "Something went wrong!")
+    if ([401, 422].includes(error.response.status)) {
+      store.dispatch('logout')
+    }
     return Promise.reject(error);
   });
 

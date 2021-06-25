@@ -43,10 +43,18 @@ const store = createStore({
           })
       })
     },
+    setToken({commit}, token) {
+      return new Promise((resolve) => {
+        setAuthorization(token)
+        commit('authSuccess')
+        resolve()
+      })
+    },
     logout({commit}) {
       return new Promise((resolve) => {
         clearAuthorization()
         commit('authFailed')
+        window.location = '/login.html'
         resolve()
       })
     }

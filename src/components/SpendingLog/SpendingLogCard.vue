@@ -1,0 +1,36 @@
+<template>
+  <div class="card my-1">
+    <div class="card-header">
+      {{createdAt}}
+      <a href='#' class="btn-sm btn-outline-primary float-end" role="button"><font-awesome-icon icon="edit" /></a>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6">{{spendingLog.subject}}</div>
+        <div class="col-6 text-end">{{amount}}</div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { computed } from 'vue'
+import moment from 'moment'
+import numeral from 'numeral'
+export default {
+  name: "SpendingLogCard",
+  props: {
+    spendingLog: Object
+  },
+  setup(props) {
+    const createdAt = computed(() => {
+      var date = moment(props.spendingLog.created_at)
+      return date.format('Y-MM-d')
+    })
+
+    const amount = computed(() => {
+      return numeral(props.spendingLog.amount).format('0,0')
+    })
+    return { createdAt, amount }
+  },
+}
+</script>

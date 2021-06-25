@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/oauth/:token',
+    name: 'Oauth',
+    component: () => import('../views/Oauth.vue')
+  },
+  {
     path: '/error',
     name: 'Error',
     component: () => import('../views/Error.vue')
@@ -44,12 +49,13 @@ const router = createRouter({
 
 import store from '../store'
 router.beforeEach((to, from, next) => {
+  console.log(to.name)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isAuthorized) {
       next()
       return
     }
-    next('/error')
+    store.dispatch('logout')
   } else if (to.name == 'Login' && store.getters.isAuthorized) {
     next('/')
   } else {
