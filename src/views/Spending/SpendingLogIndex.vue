@@ -22,9 +22,9 @@ import { ref, reactive, watch, getCurrentInstance, onMounted } from 'vue'
 import SelectTimeRange from '@/components/Filters/SelectTimeRange.vue'
 import SelectSpendingCategory from '@/components/Filters/SelectSpendingCategory.vue';
 import SpendingLogCard from '@/components/SpendingLog/SpendingLogCard.vue';
-const querystring = require("querystring");
+import querystring from 'querystring'
 export default {
-  name: 'SpendingLog',
+  name: 'SpendingLogIndex',
   components: {
     SelectTimeRange,
     SelectSpendingCategory,
@@ -35,13 +35,13 @@ export default {
     const holaClient = curInstance.appContext.config.globalProperties.$holaClient
     const spending_logs = ref([])
     const filter = reactive({
-      "category_id": null,
+      "category_id": 0,
       "time_range": null
     })
 
     const fetchData = function() {
       holaClient.get('/spending-log?'+querystring.stringify({
-        category_id: filter.category_id,
+        category_id: (filter.category_id != 0) ? filter.category_id : '',
         timerange: filter.time_range
       }))
         .then(resp => {
@@ -49,7 +49,10 @@ export default {
         })
     }
 
-    watch(filter, () => {fetchData()}, {deep: true})
+    watch(filter, () => {
+      filter.category_id = parseInt(filter.category_id)
+      fetchData()
+    }, {deep: true})
 
     onMounted(() => {
       fetchData()

@@ -1,15 +1,15 @@
 <template>
   <select class="form-select" :value="categoryId" @change="$emit('update:categoryId', $event.target.value)">
-    <option value=''>Tất cả</option>
+    <option value='0'>Tất cả</option>
     <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{cat.display_name}}</option>
   </select>
 </template>
 <script>
-import { ref, getCurrentInstance, onMounted } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
 export default {
   name: "SelectSpendingCategory",
   props: {
-    categoryId: String
+    categoryId: Number 
   },
   emits: ['update:categoryId'],
   setup() {
@@ -24,7 +24,7 @@ export default {
         })
     }
 
-    onMounted(() => { fetchData() })
+  fetchData()
 
     return { categories, fetchData }
   },

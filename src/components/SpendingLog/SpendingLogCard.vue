@@ -1,13 +1,16 @@
 <template>
   <div class="card mb-2 shadow-sm bg-body">
     <div class="card-header">
-      {{createdAt}}
-      <a href='#' class="btn-sm btn-outline-primary float-end" role="button"><font-awesome-icon icon="edit" /></a>
+      {{createdAt}} 
+      <router-link class="btn-sm btn-outline-primary float-end" :to="{name: 'SpendingLog.Detail', params: {spending_id: spendingLog.id}}"><font-awesome-icon icon="edit" /></router-link>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-6">{{spendingLog.subject}}</div>
-        <div class="col-6 text-end">{{amount}}</div>
+        <div class="col-6 text-end">{{amount}} 
+          <span class="badge bg-danger" v-if="spendingLog.transaction_type == 'credit'">C</span>
+          <span class="badge bg-primary" v-if="spendingLog.transaction_type == 'debit'">D</span>
+        </div>
       </div>
     </div>
   </div>

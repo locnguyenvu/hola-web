@@ -7,7 +7,8 @@ const store = createStore({
       auth_status: '',
       hola_token: getToken(),
       error_http_status_code : 0,
-      error_message: null
+      error_message: null,
+      notify_message: null
     }
   },
   mutations: {
@@ -22,6 +23,9 @@ const store = createStore({
     },
     setErrorMessage(state, msg) {
       state.error_message = msg
+    },
+    setNotifyMessage(state, msg) {
+      state.notify_message = msg
     }
   },
   actions: {
@@ -57,13 +61,21 @@ const store = createStore({
         window.location = '/login.html'
         resolve()
       })
+    },
+    notify({commit}, message) {
+      commit('setNotifyMessage', message)
+      return new Promise((resolve) => {
+        setTimeout(function () { commit('setNotifyMessage', null); }, 3000)
+        resolve()
+      })
     }
   },
   getters: {
     isAuthorized: state => state.auth_status == 'success' || state.hola_token,
     isClientError: state => state.error_http_status_code >= 400 && state.error_http_status_code < 500,
     isServerError: state => state.error_http_status_code >= 500,
-    errorMessage: state => state.error_message
+    errorMessage: state => state.error_message,
+    notifyMessage: state => state.notify_message
   }
 })
 

@@ -25,10 +25,18 @@
       </div>
     </div>
   </nav>
+  <!-- Notify center -->
   <div id="notify-center" class="row" v-if="errorMessage">
     <div class="col-12">
       <div class="alert" v-bind:class="{'alert-danger': isServerError, 'alert-warning': isClientError}" role="alert">
         {{errorMessage}} 
+      </div>
+     </div>
+  </div>
+  <div id="notify-center" class="row" v-if="notifyMessage">
+    <div class="col-12">
+      <div class="alert alert-success"  role="alert">
+        {{notifyMessage}} 
       </div>
      </div>
   </div>
@@ -46,7 +54,8 @@ export default {
       'isClientError',
       'isServerError',
       'isAuthorized',
-      'errorMessage'
+      'errorMessage',
+      'notifyMessage'
     ])
   },
   setup() {

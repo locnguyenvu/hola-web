@@ -34,8 +34,16 @@ const routes = [
   },
   {
     path: '/spending-log',
-    name: 'SpendingLog',
-    component: () => import('../views/SpendingLog.vue'),
+    name: 'SpendingLog.Index',
+    component: () => import('../views/Spending/SpendingLogIndex.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/spending-log/:spending_id',
+    name: 'SpendingLog.Detail',
+    component: () => import('../views/Spending/SpendingLogDetail.vue'),
     meta: {
       requiresAuth: true
     }
@@ -49,7 +57,6 @@ const router = createRouter({
 
 import store from '../store'
 router.beforeEach((to, from, next) => {
-  console.log(to.name)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isAuthorized) {
       next()
