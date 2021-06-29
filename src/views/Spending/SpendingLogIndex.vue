@@ -50,7 +50,6 @@ export default {
     }
 
     watch(filter, () => {
-      filter.category_id = parseInt(filter.category_id)
       fetchData()
     }, {deep: true})
 
