@@ -32,7 +32,8 @@ const store = createStore({
     login({commit}, payload) {
       return new Promise((resolve, reject) => {
         holaClient.post('/login/'+ payload.session_id, {
-          pin: payload.pin
+          pin: payload.pin,
+          otp: payload.otp
         })
           .then(resp => {
             const token = resp.data.token

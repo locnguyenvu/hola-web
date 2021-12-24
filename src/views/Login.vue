@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-3 col-sm-8 form-group">
-        <input class="form-control" type="password" name="password" v-model="pin" required />
+        <input class="form-control" type="password" name="password" inputmode="numeric" v-model="pin" required />
       </div>
     </div>
     <div class="row align-items-center mt-3">
@@ -33,7 +33,8 @@ export default {
     const login =function() {
       store.dispatch('login', {
         session_id: route.params.session_id,
-        pin: pin.value
+        pin: pin.value,
+        otp: route.query.otp
       }).then(() => {
         router.push('/')
       })
