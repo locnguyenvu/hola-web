@@ -31,7 +31,7 @@ const store = createStore({
   actions: {
     login({commit}, payload) {
       return new Promise((resolve, reject) => {
-        holaClient.post('/login/'+ payload.session_id, {
+        holaClient.post('/auth/'+ payload.session_id, {
           pin: payload.pin,
           otp: payload.otp
         })
