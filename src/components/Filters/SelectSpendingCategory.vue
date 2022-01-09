@@ -24,9 +24,10 @@ export default {
         })
     }
 
-  fetchData()
-
     return { categories, fetchData }
   },
+  created() {
+    this.fetchData()
+  }
 }
 </script>
