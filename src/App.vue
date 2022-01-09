@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" v-if="isAuthorized">
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" v-if="isAuthorized">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">Hola</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
+          <li class="nav-item" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" @click="routeTo('/spending-log')" >
             <router-link to="/spending-log" class="nav-link" >Spendings</router-link>
           </li>
           <li class="nav-item dropdown">
@@ -69,7 +69,11 @@ export default {
       router.push('/error')
     }
 
-    return { logout }
+    const routeTo = function(path) {
+      router.push(path)
+    }
+
+    return { logout, routeTo }
   }
 }
 </script>
@@ -114,6 +118,10 @@ export default {
 }
 .nav-item a.router-link-exact-active {
   font-weight: 600;
+}
+
+#router-view {
+  margin-top: 75px;
 }
 
 </style>
