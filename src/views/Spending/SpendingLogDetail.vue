@@ -50,6 +50,7 @@ export default {
 
     const sendUpdate = function() {
       holaClient.put('/spending-log/' + route.params.spending_id, {
+        "subject": spendingLog.value.subject,
         "spending_category_id": spendingLog.value.category_id,
         "transaction_type": spendingLog.value.transaction_type,
         "amount": spendingLog.value.amount

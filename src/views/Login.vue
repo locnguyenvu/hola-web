@@ -21,6 +21,7 @@
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 import { ref } from 'vue'
+import platform from 'platform'
 export default {
   name: "Login",
   setup() {
@@ -34,7 +35,8 @@ export default {
       store.dispatch('login', {
         session_id: route.params.session_id,
         pin: pin.value,
-        otp: route.query.otp
+        otp: route.query.otp,
+        browser_info: platform.description
       }).then(() => {
         router.push('/')
       })

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -8,12 +9,17 @@ import { holaClient }  from './http/hola-api'
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
+import { SetupCalendar, Calendar, DatePicker } from 'v-calendar';
+
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faEdit)
 
 const app = createApp(App)
+app.use(SetupCalendar, {})
+app.component('DatePicker', DatePicker)
 
 app.config.globalProperties.$holaClient = holaClient
 

@@ -33,7 +33,8 @@ const store = createStore({
       return new Promise((resolve, reject) => {
         holaClient.post('/auth/'+ payload.session_id, {
           pin: payload.pin,
-          otp: payload.otp
+          otp: payload.otp,
+          browser_info: payload.browser_info,
         })
           .then(resp => {
             const token = resp.data.token
@@ -59,7 +60,7 @@ const store = createStore({
       return new Promise((resolve) => {
         clearAuthorization()
         commit('authFailed')
-        window.location = '/login.html'
+        window.location = '/401.html'
         resolve()
       })
     },
