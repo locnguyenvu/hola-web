@@ -15,7 +15,7 @@
             </div>
             <div class="mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
               <label class="form-label">Amount</label>
-              <input type="text" v-model="spendingLog.amount" class="form-control" />
+              <input type="text" v-model="spendingLog.amount" class="form-control" inputmode="numeric" />
             </div>
             <div class="mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
               <label class="form-label">Payment type</label>
@@ -46,7 +46,7 @@
           <div class="accordion-body">
             <div class="mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
               <label class="form-label">Amount</label>
-              <input type="text" v-model="splitLog.amount" class="form-control" />
+              <input type="text" v-model="splitLog.amount" class="form-control" inputmode="numeric" />
             </div>
             <div class="mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
               <label class="form-label">Category</label>
