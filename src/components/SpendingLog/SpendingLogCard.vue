@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-2 shadow-sm bg-body">
     <div class="card-header">
-      {{createdAt}} 
+      [{{createdAt}}] {{spendingLog.category}}
       <router-link class="btn-sm btn-outline-primary float-end" :to="{name: 'SpendingLog.Detail', params: {spending_id: spendingLog.id}}"><font-awesome-icon icon="edit" /></router-link>
     </div>
     <div class="card-body">
@@ -27,7 +27,7 @@ export default {
   setup(props) {
     const createdAt = computed(() => {
       var date = moment(props.spendingLog.created_at)
-      return date.format('Y-MM-d')
+      return date.format('YYYY-MM-DD')
     })
 
     const amount = computed(() => {
