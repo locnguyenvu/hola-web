@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store'
 
 const LOCALSTORAGE_ALIAS = 'hola-token'
-const holaApiBaseUrl = process.env.VUE_APP_HOLAA_API_URL
+const holaApiBaseUrl = process.env.VUE_APP_API_BASE_URL
 
 const holaClient = axios.create({
   'baseURL': holaApiBaseUrl,

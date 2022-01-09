@@ -18,7 +18,7 @@
 import { ref,  getCurrentInstance, onMounted } from 'vue'
 import { Chart } from 'chart.js';
 export default {
-  name: 'ExpenseByCategoryPieChartCard',
+  name: 'ExpenseByCategoryDoughnutChartCard',
   props: {
     msg: String
   },
@@ -53,7 +53,7 @@ export default {
           fromMonth.value = reportData.from_month
           toMonth.value = reportData.to_month
           const chartConfig = {
-            type: 'pie',
+            type: 'doughnut',
             data: {
               labels: reportData.categories.map(cat => cat.dis_name),
                 datasets: [{

@@ -59,7 +59,7 @@ const store = createStore({
       return new Promise((resolve) => {
         clearAuthorization()
         commit('authFailed')
-        window.location = '/login.html'
+        window.location = '/401.html'
         resolve()
       })
     },

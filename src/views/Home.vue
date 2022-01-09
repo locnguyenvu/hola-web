@@ -1,7 +1,7 @@
 <template>
   <div class="home row">
     <div class="col-sm-12 col-md-4 col-lg-4">
-      <expense-by-category-pie-chart-card />
+      <expense-by-category-doughnut-chart-card />
     </div>
     <div class="col-sm-12 col-md-4 col-lg-4">
       <expense-by-month-line-chart-card />
@@ -11,13 +11,13 @@
 
 <script>
 // @ is an alias to /src
-import ExpenseByCategoryPieChartCard from '@/components/Dashboard/ExpenseByCategoryPieChartCard.vue'
+import ExpenseByCategoryDoughnutChartCard from '@/components/Dashboard/ExpenseByCategoryDoughnutChartCard.vue'
 import ExpenseByMonthLineChartCard from '@/components/Dashboard/ExpenseByMonthLineChartCard.vue'
 
 export default {
   name: 'Home',
   components: {
-    ExpenseByCategoryPieChartCard,
+    ExpenseByCategoryDoughnutChartCard,
     ExpenseByMonthLineChartCard
   }
 }
