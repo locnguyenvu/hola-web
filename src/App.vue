@@ -10,14 +10,6 @@
           <li class="nav-item" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" @click="routeTo('/spending-log')" >
             <router-link to="/spending-log" class="nav-link" >Spendings</router-link>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Settings 
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-              <li><router-link to="/user" class="dropdown-item">User</router-link></li>
-            </ul>
-          </li>
         </ul>
         <div class="d-flex" v-if="isAuthorized">
           <a class="btn-logout" href="#" @click="logout">Logout</a>
@@ -26,15 +18,13 @@
     </div>
   </nav>
   <!-- Notify center -->
-  <div id="notify-center" class="row" v-if="errorMessage">
-    <div class="col-12">
+  <div id="notify-center">
+    <div class="col-12" v-if="errorMessage">
       <div class="alert" v-bind:class="{'alert-danger': isServerError, 'alert-warning': isClientError}" role="alert">
         {{errorMessage}} 
       </div>
-     </div>
-  </div>
-  <div id="notify-center" class="row" v-if="notifyMessage">
-    <div class="col-12">
+    </div>
+    <div class="col-12" v-if="notifyMessage">
       <div class="alert alert-success"  role="alert">
         {{notifyMessage}} 
       </div>
@@ -100,7 +90,8 @@ export default {
 }
 
 #notify-center {
-  padding: 15px;
+  padding: 15px 15px 0 15px;
+  margin-top: 75px;
 }
 
 #nav {
@@ -121,7 +112,7 @@ export default {
 }
 
 #router-view {
-  margin-top: 75px;
+  margin-top: 10px;
 }
 
 </style>
