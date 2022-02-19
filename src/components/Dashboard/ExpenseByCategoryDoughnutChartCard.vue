@@ -62,6 +62,13 @@ export default {
                   backgroundColor: colors.slice(0, reportData.categories.length),
                   hoverOffset: 4
                 }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
             }
           }
           new Chart(chart.value.getContext('2d'), chartConfig)
