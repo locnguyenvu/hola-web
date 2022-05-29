@@ -32,41 +32,57 @@ export default {
     const holaClient = curInstance.appContext.config.globalProperties.$holaClient
 
     const colors = [
-      'rgba(235, 64, 52)',
-      'rgba(100, 227, 108)',
-      'rgba(111, 150, 189)',
-      'rgba(224, 203, 79)',
-      'rgba(16, 230, 178)',
-      'rgba(17, 54, 45)',
+      'rgb(0, 63, 92)',
+      'rgb(47, 75, 124)',
+      'rgb(102, 81, 145)',
+      'rgb(160, 81, 149)',
+      'rgb(212, 80, 135)',
+      'rgb(249, 93, 106)',
       'rgba(99, 142, 230)',
-      'rgba(117, 72, 176)',
-      'rgba(222, 42, 222)',
-      'rgba(117, 9, 35)',
-      'rgba(122, 116, 118)'
+      'rgb(255, 124, 67)',
+      'rgb(255, 166, 0)',
     ];
+
+    const transformForChartData = function(categories) {
+      var chartData = []
+      for (let i = 0; i < 4; i++) {
+        chartData.push(categories[i])
+      }
+      let sumTheRest = 0
+      for (let i = 4; i < categories.length; i++) {
+        sumTheRest += categories[i].value
+      }
+      chartData.push({
+        "dis_name": "Những khoản khác",
+        "name": "others",
+        "value": sumTheRest
+      })
+      return chartData
+    }
 
     onMounted(() => {
       holaClient.get('/chart/expense-by-category')
         .then(resp => {
           const reportData = resp.data
+          const chartData = transformForChartData(reportData.categories)
           total.value = reportData.total
           fromMonth.value = reportData.from_month
           toMonth.value = reportData.to_month
           const chartConfig = {
             type: 'doughnut',
             data: {
-              labels: reportData.categories.map(cat => cat.dis_name),
-                datasets: [{
-                  label: 'Tổng tiền ' + reportData.total,
-                  data: reportData.categories.map(cat => cat.value),
-                  backgroundColor: colors.slice(0, reportData.categories.length),
-                  hoverOffset: 4
-                }]
+              labels: chartData.map(cat => cat.dis_name),
+              datasets: [{
+                label: 'Tổng tiền ' + reportData.total,
+                data: chartData.map(cat => cat.value),
+                backgroundColor: colors.slice(0, chartData.length),
+                hoverOffset: 4
+              }]
             },
             options: {
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 }
             }
