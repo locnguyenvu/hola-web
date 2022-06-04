@@ -44,6 +44,9 @@ export default {
     ];
 
     const transformForChartData = function(categories) {
+			if (categories.length < 4) {
+				return categories
+			}
       var chartData = []
       for (let i = 0; i < 4; i++) {
         chartData.push(categories[i])

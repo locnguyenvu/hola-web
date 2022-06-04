@@ -32,6 +32,8 @@ export default {
     SpendingLogCard,
   },
   setup() {
+		const LS_FILTER = "spendinglogindex_filter"
+		const LS_FILTER_TIMEOUT = "spendinglogindex_filter_timeout"
     const curInstance = getCurrentInstance()
     const holaClient = curInstance.appContext.config.globalProperties.$holaClient
     const spending_logs = ref([])
@@ -43,11 +45,11 @@ export default {
       },
     })
 
-    const fetchData = function() {
-      let from_date = moment(filter.date_range.start).hour(0).minute(0).second(0)
-      let to_date = moment(filter.date_range.end).hour(23).minute(59).second(59)
+    const fetchData = function(from, to, categoryID) {
+      let from_date = moment(from).hour(0).minute(0).second(0)
+      let to_date = moment(to).hour(23).minute(59).second(59)
       holaClient.get('/spending-log?'+querystring.stringify({
-        category_id: (filter.category_id != 0) ? filter.category_id : '',
+        category_id: (categoryID != 0) ? categoryID : '',
         from_date: from_date.format("YYYY-MM-DD HH:mm:ss"),
         to_date: to_date.format("YYYY-MM-DD HH:mm:ss"),
       }))
@@ -57,14 +59,25 @@ export default {
     }
 
     watch(filter, () => {
-      fetchData()
+			localStorage.setItem(LS_FILTER, JSON.stringify(filter))
+			localStorage.setItem(LS_FILTER_TIMEOUT, moment().add(5, 'minutes').format())
+      fetchData(filter.date_range.start, filter.date_range.end, filter.category_id)
     }, {deep: true})
 
     onMounted(() => {
-      fetchData()
+			if (localStorage.getItem(LS_FILTER_TIMEOUT) != null) {
+				if (moment().isAfter(moment(localStorage.getItem(LS_FILTER_TIMEOUT)))) {
+					localStorage.removeItem(LS_FILTER)
+				}
+			}
+			if (localStorage.getItem(LS_FILTER) != null) {
+				let lsf = JSON.parse(localStorage.getItem(LS_FILTER))
+				filter.date_range.start = lsf.date_range.start
+				filter.date_range.end = lsf.date_range.end
+				filter.category_id = lsf.category_id
+			}
+      fetchData(filter.date_range.start, filter.date_range.end, filter.category_id)
     })
-
-
 
     return { spending_logs, fetchData, filter }
   }
