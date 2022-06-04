@@ -9,7 +9,8 @@ import { holaClient }  from './http/hola-api'
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-import { SetupCalendar, Calendar, DatePicker } from 'v-calendar';
+import { SetupCalendar, DatePicker } from 'v-calendar';
+import 'v-calendar/dist/style.css';
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
